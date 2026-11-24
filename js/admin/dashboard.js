@@ -53,4 +53,46 @@ document.addEventListener("DOMContentLoaded", async function () {
     showFeedback(feedback, `Ringkasan gagal dimuat: ${error.message}`, true);
     console.error("Gagal memuat dashboard admin:", error);
   }
+
+  const accountsFeedback = document.getElementById("accounts-feedback");
+  const accountsList = document.getElementById("citizen-accounts-list");
+  try {
+    const pageSize = 1000;
+    const accounts = [];
+    for (let start = 0; ; start += pageSize) {
+      const { data, error } = await access.client.from("profiles")
+        .select("id,nama,email,created_at")
+        .eq("role", "warga")
+        .order("created_at", { ascending: false })
+        .range(start, start + pageSize - 1);
+      if (error) throw error;
+      accounts.push(...(data || []));
+      if (!data || data.length < pageSize) break;
+    }
+
+    if (!accounts.length) {
+      const empty = document.createElement("p");
+      empty.className = "empty-state";
+      empty.textContent = "Belum ada akun warga yang terdaftar.";
+      accountsList.replaceChildren(empty);
+    } else {
+      const fragment = document.createDocumentFragment();
+      accounts.forEach((account) => {
+        const card = document.createElement("article");
+        card.className = "admin-record glass";
+        const name = document.createElement("h3");
+        name.textContent = account.nama;
+        const detail = document.createElement("p");
+        detail.className = "muted";
+        detail.textContent = `${account.email} · Terdaftar ${formatDateTime(account.created_at)}`;
+        card.append(name, detail);
+        fragment.append(card);
+      });
+      accountsList.replaceChildren(fragment);
+    }
+    showFeedback(accountsFeedback, `${accounts.length} akun warga dimuat.`, false);
+  } catch (error) {
+    showFeedback(accountsFeedback, `Daftar akun warga gagal dimuat: ${error.message}`, true);
+    console.error("Gagal memuat daftar akun warga:", error);
+  }
 });
