@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Panduan penggunaan dan batasan Ambon Alert.">
+  <title>Panduan — Ambon Alert</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link" href="index.html">Peta situasi</a>
+      <a class="nav-link" href="laporan.html">Buat laporan</a>
+      <a class="nav-link" href="informasi.html">Informasi</a>
+      <a class="nav-link is-active" href="panduan.html" aria-current="page">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a>
+      <a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a>
+      <a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button>
+      <span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+  <main id="main-content" class="page-shell narrow-shell">
+    <section class="page-heading">
+      <div><p class="eyebrow">TENTANG AMBON ALERT</p><h1>Panduan & batasan</h1><p class="muted">Informasi agar aplikasi digunakan secara tepat dan aman.</p></div>
+    </section>
+    <section class="content-card glass">
+      <h2>Fungsi aplikasi</h2>
+      <p>Ambon Alert dirancang sebagai sarana pendukung bagi warga untuk melihat peta dan berbagi informasi terkait banjir serta tanah longsor di Kota Ambon.</p>
+      <h2>Bukan kanal resmi atau layanan darurat</h2>
+      <p>Aplikasi ini merupakan pendukung/pelengkap dan <strong>bukan pengganti SP4N-LAPOR!, layanan darurat resmi, ataupun sistem operasional BPBD</strong>. Jangan menggunakan aplikasi ini untuk meminta pertolongan darurat atau menganggap laporan telah diterima petugas.</p>
+      <h2>Tidak ada prediksi atau peringatan otomatis</h2>
+      <p>Ambon Alert tidak menyediakan prediksi bencana dan tidak mengirim peringatan dini otomatis. Peta atau tidak adanya laporan bukan indikator bahwa suatu wilayah aman.</p>
+      <h2>Periksa dan jaga informasi</h2>
+      <ul><li>Utamakan keselamatan dan arahan pihak berwenang.</li><li>Periksa informasi melalui kanal resmi sebelum menyebarkannya.</li><li>Jangan membagikan data pribadi atau informasi yang belum dapat dipastikan.</li><li>Lokasi dan laporan warga dapat keliru, terlambat, atau belum diverifikasi.</li></ul>
+      <p class="content-callout"><strong>Status prototipe:</strong> peta, informasi, dan pelaporan warga bergantung pada konfigurasi Supabase serta sumber data yang tersedia. Laporan menunggu belum diverifikasi dan tidak boleh dianggap sebagai informasi resmi.</p>
+      <a class="button button-primary" href="index.html">Kembali ke peta</a>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="laporan.html">Buat laporan</a></footer>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script>
+</body>
+</html>

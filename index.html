@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Ambon Alert membantu warga melihat dan melaporkan informasi banjir serta tanah longsor di Kota Ambon.">
+  <title>Ambon Alert — Peta Situasi</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link is-active" href="index.html" aria-current="page">Peta situasi</a>
+      <a class="nav-link" href="laporan.html">Buat laporan</a>
+      <a class="nav-link" href="informasi.html">Informasi</a>
+      <a class="nav-link" href="panduan.html">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a>
+      <a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a>
+      <a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button>
+      <span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+
+  <main id="main-content" class="page-shell">
+    <section class="emergency-notice" aria-labelledby="notice-title">
+      <span class="notice-symbol" aria-hidden="true">!</span>
+      <div>
+        <h1 id="notice-title">Informasi penting</h1>
+        <p>Ambon Alert adalah sarana pendukung/pelengkap. Bukan pengganti <strong>SP4N-LAPOR!</strong>, layanan darurat resmi, atau sistem operasional BPBD. Aplikasi ini tidak menyediakan prediksi bencana maupun peringatan dini otomatis.</p>
+        <p class="notice-action">Dalam keadaan darurat, hubungi layanan resmi setempat. Jangan menunggu informasi dari aplikasi ini.</p>
+      </div>
+    </section>
+
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">KOTA AMBON · PETA WILAYAH</p>
+        <h2>Peta situasi</h2>
+        <p class="muted">Lihat lokasi dan kirim informasi warga. Data yang tampil perlu diverifikasi.</p>
+      </div>
+      <a class="button button-primary" href="laporan.html"><span aria-hidden="true">＋</span> Buat laporan</a>
+    </section>
+
+    <section class="stats-grid" aria-label="Statistik laporan publik">
+      <article class="stat-card glass"><p>Total laporan publik</p><strong id="stat-total">Memuat…</strong></article>
+      <article class="stat-card glass"><p>Terverifikasi</p><strong id="stat-verified">Memuat…</strong></article>
+      <article class="stat-card glass"><p>Menunggu verifikasi</p><strong id="stat-pending">Memuat…</strong></article>
+    </section>
+
+    <section class="map-layout" aria-label="Peta dan keterangan">
+      <div class="map-panel glass">
+        <div class="map-toolbar">
+          <div>
+            <h3>Peta Kota Ambon</h3>
+            <p class="muted small">Peta dasar dari OpenStreetMap</p>
+          </div>
+          <span class="map-badge"><span class="status-dot status-dot-muted" aria-hidden="true"></span>Informasi warga</span>
+        </div>
+        <div id="map" class="map-canvas" role="region" aria-label="Peta interaktif Kota Ambon">
+          <p class="map-fallback">Memuat peta… Jika peta tidak muncul, periksa koneksi internet Anda.</p>
+        </div>
+        <section class="map-legend" aria-labelledby="legend-heading">
+          <h3 id="legend-heading">Legenda & catatan peta</h3>
+          <ul class="map-legend-list">
+            <li><span class="legend-marker marker-flood" aria-hidden="true"></span>Lingkaran penuh — banjir terverifikasi</li>
+            <li><span class="legend-marker marker-landslide" aria-hidden="true"></span>Lingkaran penuh — longsor terverifikasi</li>
+            <li><span class="legend-outline" aria-hidden="true"></span>Lingkaran putus-putus — menunggu verifikasi (warna sesuai jenis)</li>
+            <li><span class="legend-diamond hazard-low" aria-hidden="true">◆</span>Titik rawan rendah</li>
+            <li><span class="legend-diamond hazard-medium" aria-hidden="true">◆</span>Titik rawan sedang</li>
+            <li><span class="legend-diamond hazard-high" aria-hidden="true">◆</span>Titik rawan tinggi</li>
+          </ul>
+          <p class="map-public-note"><strong>Laporan warga bukan informasi resmi sebelum diverifikasi.</strong> Laporan menunggu belum diverifikasi; laporan ditolak tidak ditampilkan. Peta kosong bukan indikator bahwa wilayah aman.</p>
+        </section>
+        <p class="map-attribution">Peta &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors. Bukan peta resmi operasional darurat.</p>
+      </div>
+      <aside class="side-panel glass" aria-label="Ringkasan peta">
+        <section>
+          <h3>Filter peta</h3>
+          <div class="field filter-field">
+            <label for="filter-type">Jenis kejadian</label>
+            <select id="filter-type">
+              <option value="semua">Semua jenis</option>
+              <option value="banjir">Banjir</option>
+              <option value="longsor">Tanah longsor</option>
+            </select>
+          </div>
+          <div class="field filter-field">
+            <label for="filter-status">Status laporan</label>
+            <select id="filter-status">
+              <option value="semua">Semua status publik</option>
+              <option value="terverifikasi">Terverifikasi</option>
+              <option value="menunggu">Menunggu verifikasi</option>
+            </select>
+          </div>
+          <button class="button button-secondary layer-toggle" id="toggle-risk-layer" type="button" aria-pressed="true">Sembunyikan titik rawan</button>
+          <p class="muted small" id="map-data-status" role="status" aria-live="polite">Memuat data publik…</p>
+        </section>
+        <section class="report-summary">
+          <h3>Laporkan kejadian</h3>
+          <p class="muted">Warga dapat mengirim laporan untuk ditinjau sebelum ditampilkan sebagai informasi terverifikasi.</p>
+          <a class="text-link" href="laporan.html">Kirim informasi <span aria-hidden="true">→</span></a>
+        </section>
+        <section class="map-caveat">
+          <h3>Titik rawan</h3>
+          <p class="muted small">Titik rawan berasal dari sumber data yang tercantum di popup. Data dapat memiliki tanggal pemutakhiran yang berbeda.</p>
+        </section>
+      </aside>
+    </section>
+    <section class="official-links glass" aria-labelledby="official-links-heading">
+      <div><h2 id="official-links-heading">Kanal pendukung resmi</h2><p class="muted">Gunakan kanal berwenang untuk pelaporan resmi dan informasi risiko.</p></div>
+      <a class="button button-secondary" href="https://www.lapor.go.id/" target="_blank" rel="noopener noreferrer">SP4N-LAPOR!</a>
+      <a class="button button-secondary" href="https://inarisk.bnpb.go.id/" target="_blank" rel="noopener noreferrer">InaRISK BNPB</a>
+      <a class="text-link" href="informasi.html">Semua informasi →</a>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="panduan.html">Tentang penggunaan</a></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script>
+  <script type="module" src="js/map.js"></script>
+</body>
+</html>

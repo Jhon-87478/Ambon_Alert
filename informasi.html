@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Pengumuman dan informasi publik pendukung Ambon Alert.">
+  <title>Informasi Publik — Ambon Alert</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link" href="index.html">Peta situasi</a>
+      <a class="nav-link" href="laporan.html">Buat laporan</a>
+      <a class="nav-link is-active" href="informasi.html" aria-current="page">Informasi</a>
+      <a class="nav-link" href="panduan.html">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a>
+      <a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a>
+      <a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button>
+      <span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+  <main id="main-content" class="page-shell">
+    <section class="page-heading">
+      <div><p class="eyebrow">INFORMASI WARGA</p><h1>Informasi publik</h1><p class="muted">Pengumuman, edukasi, dan kontak yang diterbitkan melalui Ambon Alert.</p></div>
+    </section>
+    <section class="content-card glass official-resources" aria-labelledby="official-resources-heading">
+      <h2 id="official-resources-heading">Kanal resmi pendukung</h2>
+      <p>Gunakan kanal berwenang untuk pelaporan resmi dan informasi risiko. Ambon Alert bukan pengganti layanan tersebut.</p>
+      <div class="official-resource-list">
+        <a class="button button-secondary" href="https://www.lapor.go.id/" target="_blank" rel="noopener noreferrer">SP4N-LAPOR!</a>
+        <a class="button button-secondary" href="https://inarisk.bnpb.go.id/" target="_blank" rel="noopener noreferrer">InaRISK BNPB</a>
+      </div>
+    </section>
+    <section class="public-information-section" aria-labelledby="information-list-heading">
+      <div class="information-heading">
+        <div><h2 id="information-list-heading">Pengumuman, edukasi & kontak</h2><p class="muted">Periksa tanggal penerbitan dan rujuk kanal resmi untuk keputusan penting.</p></div>
+        <div class="field information-filter">
+          <label for="information-category">Kategori</label>
+          <select id="information-category">
+            <option value="semua">Semua kategori</option>
+            <option value="pengumuman">Pengumuman</option>
+            <option value="edukasi">Edukasi</option>
+            <option value="kontak">Kontak</option>
+          </select>
+        </div>
+      </div>
+      <p class="form-feedback" id="information-status" role="status" aria-live="polite">Memuat informasi…</p>
+      <div class="information-list" id="information-list" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="panduan.html">Panduan</a></footer>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script>
+  <script type="module" src="js/informasi.js"></script>
+</body>
+</html>

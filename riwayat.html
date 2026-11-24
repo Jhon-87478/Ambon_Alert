@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Riwayat laporan banjir dan tanah longsor yang Anda kirim ke Ambon Alert.">
+  <title>Riwayat Laporan — Ambon Alert</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link" href="index.html">Peta situasi</a><a class="nav-link" href="laporan.html">Buat laporan</a><a class="nav-link is-active" href="riwayat.html" aria-current="page">Riwayat</a><a class="nav-link" href="informasi.html">Informasi</a><a class="nav-link" href="panduan.html">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a><a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a><a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button><span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+  <main id="main-content" class="page-shell narrow-shell">
+    <section class="page-heading">
+      <div><p class="eyebrow">AKUN WARGA</p><h1>Riwayat laporan saya</h1><p class="muted">Status laporan warga dapat berubah setelah proses verifikasi.</p></div>
+      <a class="button button-primary" href="laporan.html">Buat laporan</a>
+    </section>
+    <p class="form-feedback" id="history-feedback" role="status" aria-live="polite">Memuat riwayat…</p>
+    <section class="history-list" id="report-history" aria-live="polite" aria-label="Daftar laporan saya"></section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="panduan.html">Panduan</a></footer>
+  <script src="js/config.js"></script><script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script><script type="module" src="js/history.js"></script>
+</body>
+</html>

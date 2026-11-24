@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Kirim laporan warga tentang banjir atau tanah longsor di Kota Ambon.">
+  <title>Buat Laporan — Ambon Alert</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link" href="index.html">Peta situasi</a>
+      <a class="nav-link is-active" href="laporan.html" aria-current="page">Buat laporan</a>
+      <a class="nav-link" href="riwayat.html">Riwayat</a>
+      <a class="nav-link" href="informasi.html">Informasi</a>
+      <a class="nav-link" href="panduan.html">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a>
+      <a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a>
+      <a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button>
+      <span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+  <main id="main-content" class="page-shell narrow-shell">
+    <section class="emergency-notice" aria-labelledby="notice-title">
+      <span class="notice-symbol" aria-hidden="true">!</span>
+      <div>
+        <h1 id="notice-title">Bukan kanal darurat</h1>
+        <p>Ambon Alert adalah sarana pendukung/pelengkap, bukan pengganti SP4N-LAPOR!, layanan darurat resmi, atau sistem operasional BPBD. Aplikasi ini tidak menyediakan prediksi bencana maupun peringatan dini otomatis.</p>
+        <p class="notice-action">Dalam keadaan darurat, hubungi layanan resmi setempat. Jangan menunggu informasi dari aplikasi ini.</p>
+      </div>
+    </section>
+    <section class="page-heading">
+      <div><p class="eyebrow">INFORMASI WARGA</p><h1>Buat laporan</h1><p class="muted">Laporan tersimpan sebagai menunggu verifikasi.</p></div>
+    </section>
+    <p class="form-feedback" id="report-access-message" role="status" aria-live="polite">Memeriksa sesi akun…</p>
+    <form class="form-card glass" id="report-form" hidden>
+      <div class="form-notice"><strong>Perhatian</strong><span>Informasi warga belum diverifikasi dan tidak menggantikan layanan darurat resmi.</span></div>
+      <div class="field">
+        <label for="report-type">Jenis kejadian <span aria-hidden="true">*</span></label>
+        <select id="report-type" name="jenis" required>
+          <option value="">Pilih jenis kejadian</option>
+          <option value="banjir">Banjir</option>
+          <option value="longsor">Tanah longsor</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="report-title">Judul <span aria-hidden="true">*</span></label>
+        <input id="report-title" name="judul" type="text" maxlength="150" required>
+      </div>
+      <div class="field">
+        <label for="report-time">Waktu kejadian <span aria-hidden="true">*</span></label>
+        <input id="report-time" name="waktu_kejadian" type="datetime-local" required>
+        <small>Waktu kejadian tidak boleh di masa depan.</small>
+      </div>
+      <div class="field">
+        <label for="report-description">Deskripsi <span aria-hidden="true">*</span></label>
+        <textarea id="report-description" name="deskripsi" rows="5" minlength="10" maxlength="1000" required placeholder="Jelaskan apa yang Anda lihat secara faktual."></textarea>
+        <small>Minimal 10 karakter. Jangan menambahkan data pribadi orang lain.</small>
+      </div>
+      <div class="field">
+        <label for="report-address">Alamat atau patokan (opsional)</label>
+        <input id="report-address" name="alamat" type="text" maxlength="500" placeholder="Nama jalan, kelurahan, atau patokan umum">
+      </div>
+
+      <fieldset class="location-fieldset">
+        <legend>Pilih lokasi kejadian <span aria-hidden="true">*</span></legend>
+        <p class="muted small">Klik peta, geser penanda, masukkan koordinat, atau gunakan GPS. Area indikatif bukan batas administrasi resmi.</p>
+        <div class="map-picker-actions">
+          <button class="button button-secondary" id="use-current-location" type="button">Gunakan lokasi saat ini (GPS)</button>
+          <span class="small muted" id="gps-feedback" role="status" aria-live="polite"></span>
+        </div>
+        <div id="report-map" class="map-canvas map-picker" role="region" aria-label="Pilih titik lokasi laporan pada peta">
+          <p class="map-fallback">Memuat peta…</p>
+        </div>
+        <p class="map-attribution">Peta &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors</p>
+        <div class="coordinate-grid">
+          <div class="field">
+            <label for="report-latitude">Latitude <span aria-hidden="true">*</span></label>
+            <input id="report-latitude" name="latitude" type="number" step="0.000001" min="-11" max="6.5" required>
+          </div>
+          <div class="field">
+            <label for="report-longitude">Longitude <span aria-hidden="true">*</span></label>
+            <input id="report-longitude" name="longitude" type="number" step="0.000001" min="95" max="141" required>
+          </div>
+        </div>
+        <p class="location-warning" id="location-warning" role="status" aria-live="polite" hidden></p>
+        <label class="checkbox-label outside-confirm" id="outside-confirm-wrap" for="outside-confirm" hidden>
+          <input id="outside-confirm" type="checkbox">
+          Saya sudah memeriksa koordinat di luar area indikatif Kota Ambon.
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label for="report-photo">Foto bukti (opsional)</label>
+        <input id="report-photo" name="foto" type="file" accept="image/jpeg,image/png,image/webp">
+        <small>JPG, PNG, atau WebP, maksimal 3 MB. Foto pada laporan menunggu/terverifikasi dapat dilihat publik; jangan unggah wajah atau data pribadi.</small>
+      </div>
+      <div class="field">
+        <label class="checkbox-label" for="report-consent"><input id="report-consent" name="consent" type="checkbox" required> Saya memahami laporan ini adalah informasi warga yang perlu diverifikasi dan bukan permintaan layanan darurat.</label>
+      </div>
+      <div class="form-actions"><button class="button button-primary" type="submit">Kirim laporan</button><a class="button button-secondary" href="riwayat.html">Riwayat saya</a></div>
+      <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="panduan.html">Tentang penggunaan</a></footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script>
+  <script type="module" src="js/report-form.js"></script>
+</body>
+</html>

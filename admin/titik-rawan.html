@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c"><meta name="description" content="Kelola titik rawan banjir dan longsor Ambon Alert.">
+  <title>Kelola Titik Rawan — Ambon Alert</title><link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+<body data-home-url="../index.html">
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Panel administrator</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav admin-nav" id="primary-nav" aria-label="Navigasi administrator">
+      <a class="nav-link" href="index.html">Dashboard</a><a class="nav-link" href="laporan.html">Laporan</a><a class="nav-link is-active" href="titik-rawan.html" aria-current="page">Titik rawan</a><a class="nav-link" href="informasi.html">Informasi</a><a class="nav-link" href="../index.html">Lihat publik</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions"><a class="auth-link" href="../masuk.html" data-auth-guest>Masuk</a><a class="auth-link" href="../daftar.html" data-auth-guest>Daftar</a><a class="auth-link" href="../akun.html" data-auth-user hidden>Akun saya</a><a class="auth-link" href="../riwayat.html" data-auth-user hidden>Riwayat</a><button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button><span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span></div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Admin</span>
+  </header>
+  <main id="main-content" class="page-shell">
+    <section class="page-heading"><div><p class="eyebrow">DATA PENDUKUNG</p><h1>Kelola titik rawan</h1><p class="muted">Titik rawan dikelola terpisah dari laporan warga. Cantumkan sumber dan tanggal data.</p></div></section>
+    <p class="form-feedback" id="admin-access-status" role="status" aria-live="polite">Memeriksa sesi dan peran administrator…</p>
+    <section id="admin-app" hidden>
+      <p class="form-feedback" id="hazard-feedback" role="status" aria-live="polite"></p>
+      <form class="form-card glass admin-form" id="hazard-form">
+        <h2 id="hazard-form-heading">Tambah titik rawan</h2>
+        <input type="hidden" name="id">
+        <div class="admin-form-grid">
+          <div class="field"><label for="hazard-name">Nama <span aria-hidden="true">*</span></label><input id="hazard-name" name="nama" maxlength="150" required></div>
+          <div class="field"><label for="hazard-type">Jenis <span aria-hidden="true">*</span></label><select id="hazard-type" name="jenis" required><option value="banjir">Banjir</option><option value="longsor">Tanah longsor</option></select></div>
+          <div class="field"><label for="hazard-level">Tingkat <span aria-hidden="true">*</span></label><select id="hazard-level" name="tingkat" required><option value="rendah">Rendah</option><option value="sedang" selected>Sedang</option><option value="tinggi">Tinggi</option></select></div>
+          <div class="field"><label for="hazard-source">Sumber data <span aria-hidden="true">*</span></label><input id="hazard-source" name="sumber" maxlength="200" required placeholder="Misalnya: BPBD, InaRISK, kajian"></div>
+          <div class="field"><label for="hazard-date">Tanggal data <span aria-hidden="true">*</span></label><input id="hazard-date" name="tanggal_data" type="date" required></div>
+          <div class="field admin-wide-field"><label for="hazard-notes">Keterangan</label><textarea id="hazard-notes" name="keterangan" maxlength="1000"></textarea></div>
+        </div>
+        <fieldset class="location-fieldset">
+          <legend>Lokasi titik <span aria-hidden="true">*</span></legend>
+          <p class="muted small">Klik peta atau geser penanda. Koordinat manual juga dapat diedit.</p>
+          <p class="location-warning" id="hazard-location-warning" hidden>Koordinat berada di luar area indikatif Kota Ambon. Periksa sumber dan lokasi; batas ini bukan batas administrasi resmi.</p>
+          <div id="hazard-map" class="map-picker" tabindex="0" role="application" aria-label="Peta pemilih koordinat titik rawan"></div>
+          <div class="coordinate-grid">
+            <div class="field"><label for="hazard-latitude">Latitude</label><input id="hazard-latitude" name="latitude" type="number" min="-11" max="6.5" step="0.000001" required></div>
+            <div class="field"><label for="hazard-longitude">Longitude</label><input id="hazard-longitude" name="longitude" type="number" min="95" max="141" step="0.000001" required></div>
+          </div>
+        </fieldset>
+        <div class="form-actions"><button class="button button-primary" type="submit" id="save-hazard">Simpan titik</button><button class="button button-secondary" type="button" id="cancel-hazard-edit" hidden>Batal ubah</button></div>
+      </form>
+      <section class="admin-section" aria-labelledby="hazard-list-heading"><div class="admin-section-heading"><div><h2 id="hazard-list-heading">Daftar titik rawan</h2></div></div><div class="admin-record-list" id="hazards-list"></div></section>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Panel admin</p><a href="../panduan.html">Panduan keselamatan</a></footer>
+  <script src="../js/config.js"></script><script src="../js/ui.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script type="module" src="../js/auth-ui.js"></script><script type="module" src="../js/admin/hazards.js"></script>
+</body>
+</html>

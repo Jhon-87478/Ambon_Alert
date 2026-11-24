@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c"><meta name="description" content="Publikasikan informasi resmi pendukung Ambon Alert.">
+  <title>Publikasi Informasi — Ambon Alert</title><link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-home-url="../index.html">
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Panel administrator</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav admin-nav" id="primary-nav" aria-label="Navigasi administrator">
+      <a class="nav-link" href="index.html">Dashboard</a><a class="nav-link" href="laporan.html">Laporan</a><a class="nav-link" href="titik-rawan.html">Titik rawan</a><a class="nav-link is-active" href="informasi.html" aria-current="page">Informasi</a><a class="nav-link" href="../index.html">Lihat publik</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions"><a class="auth-link" href="../masuk.html" data-auth-guest>Masuk</a><a class="auth-link" href="../daftar.html" data-auth-guest>Daftar</a><a class="auth-link" href="../akun.html" data-auth-user hidden>Akun saya</a><a class="auth-link" href="../riwayat.html" data-auth-user hidden>Riwayat</a><button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button><span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span></div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Admin</span>
+  </header>
+  <main id="main-content" class="page-shell">
+    <section class="page-heading"><div><p class="eyebrow">KOMUNIKASI PUBLIK</p><h1>Publikasi informasi</h1><p class="muted">Konten yang disimpan akan langsung tersedia pada halaman informasi publik.</p></div></section>
+    <p class="form-feedback" id="admin-access-status" role="status" aria-live="polite">Memeriksa sesi dan peran administrator…</p>
+    <section id="admin-app" hidden>
+      <p class="form-feedback" id="information-feedback" role="status" aria-live="polite"></p>
+      <form class="form-card glass admin-form" id="information-form">
+        <h2 id="information-form-heading">Tambah informasi</h2><input type="hidden" name="id">
+        <div class="field"><label for="information-title">Judul <span aria-hidden="true">*</span></label><input id="information-title" name="judul" maxlength="200" required></div>
+        <div class="field"><label for="information-category">Kategori <span aria-hidden="true">*</span></label><select id="information-category" name="kategori" required><option value="pengumuman">Pengumuman</option><option value="edukasi">Edukasi</option><option value="kontak">Kontak</option></select></div>
+        <div class="field"><label for="information-content">Isi <span aria-hidden="true">*</span></label><textarea id="information-content" name="isi" minlength="5" required></textarea><small>Minimal 5 karakter.</small></div>
+        <div class="form-actions"><button class="button button-primary" type="submit" id="save-information">Terbitkan informasi</button><button class="button button-secondary" type="button" id="cancel-information-edit" hidden>Batal ubah</button></div>
+      </form>
+      <section class="admin-section" aria-labelledby="information-list-heading"><div class="admin-section-heading"><div><h2 id="information-list-heading">Informasi terbit</h2></div></div><div class="admin-record-list" id="information-list"></div></section>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Panel admin</p><a href="../panduan.html">Panduan keselamatan</a></footer>
+  <script src="../js/config.js"></script><script src="../js/ui.js"></script><script type="module" src="../js/auth-ui.js"></script><script type="module" src="../js/admin/information.js"></script>
+</body>
+</html>

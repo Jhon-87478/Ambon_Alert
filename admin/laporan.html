@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c"><meta name="description" content="Moderasi laporan warga Ambon Alert.">
+  <title>Kelola Laporan — Ambon Alert</title><link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-home-url="../index.html">
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Panel administrator</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav admin-nav" id="primary-nav" aria-label="Navigasi administrator">
+      <a class="nav-link" href="index.html">Dashboard</a><a class="nav-link is-active" href="laporan.html" aria-current="page">Laporan</a>
+      <a class="nav-link" href="titik-rawan.html">Titik rawan</a><a class="nav-link" href="informasi.html">Informasi</a><a class="nav-link" href="../index.html">Lihat publik</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions"><a class="auth-link" href="../masuk.html" data-auth-guest>Masuk</a><a class="auth-link" href="../daftar.html" data-auth-guest>Daftar</a><a class="auth-link" href="../akun.html" data-auth-user hidden>Akun saya</a><a class="auth-link" href="../riwayat.html" data-auth-user hidden>Riwayat</a><button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button><span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span></div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Admin</span>
+  </header>
+  <main id="main-content" class="page-shell">
+    <section class="page-heading"><div><p class="eyebrow">MODERASI</p><h1>Kelola laporan warga</h1><p class="muted">Tinjau bukti dan detail. Perubahan status akan tercatat di database.</p></div></section>
+    <p class="form-feedback" id="admin-access-status" role="status" aria-live="polite">Memeriksa sesi dan peran administrator…</p>
+    <section id="admin-app" hidden>
+      <p class="form-feedback" id="reports-feedback" role="status" aria-live="polite"></p>
+      <div class="admin-filter-bar glass">
+        <div class="field"><label for="filter-status">Status</label><select id="filter-status"><option value="semua">Semua status</option><option value="menunggu">Menunggu</option><option value="terverifikasi">Terverifikasi</option><option value="ditolak">Ditolak</option></select></div>
+        <div class="field"><label for="filter-type">Jenis</label><select id="filter-type"><option value="semua">Semua jenis</option><option value="banjir">Banjir</option><option value="longsor">Tanah longsor</option></select></div>
+      </div>
+      <div class="admin-record-list" id="reports-list"></div>
+    </section>
+  </main>
+  <dialog class="admin-dialog glass" id="reject-dialog" aria-labelledby="reject-heading">
+    <form id="reject-form" class="form-card">
+      <h2 id="reject-heading">Tolak laporan</h2><p class="muted">Alasan akan terlihat oleh pelapor. Isi alasan yang jelas dan maksimal 255 karakter.</p>
+      <div class="field"><label for="rejection-reason">Alasan penolakan <span aria-hidden="true">*</span></label><textarea id="rejection-reason" name="alasan_penolakan" maxlength="255" minlength="1" required></textarea><small id="reason-count">0/255 karakter</small></div>
+      <p class="form-feedback" id="reject-feedback" role="status" aria-live="polite"></p>
+      <div class="form-actions"><button class="button button-primary" type="submit">Simpan penolakan</button><button class="button button-secondary" id="cancel-reject" type="button">Batal</button></div>
+    </form>
+  </dialog>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Panel admin</p><a href="../panduan.html">Panduan keselamatan</a></footer>
+  <script src="../js/config.js"></script><script src="../js/ui.js"></script><script type="module" src="../js/auth-ui.js"></script><script type="module" src="../js/admin/reports.js"></script>
+</body>
+</html>

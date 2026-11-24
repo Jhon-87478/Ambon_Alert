@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07151c">
+  <meta name="description" content="Informasi akun dan penggantian kata sandi Ambon Alert.">
+  <title>Akun Saya — Ambon Alert</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <header class="site-header glass">
+    <a class="brand" href="index.html" aria-label="Ambon Alert, beranda"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-copy"><strong>Ambon Alert</strong><small>Informasi kebencanaan warga</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama">
+      <a class="nav-link" href="index.html">Peta situasi</a><a class="nav-link" href="laporan.html">Buat laporan</a><a class="nav-link" href="riwayat.html">Riwayat</a><a class="nav-link" href="informasi.html">Informasi</a><a class="nav-link" href="panduan.html">Panduan</a>
+    </nav>
+    <div class="auth-actions" id="auth-actions">
+      <a class="auth-link" href="masuk.html" data-auth-guest>Masuk</a><a class="auth-link" href="daftar.html" data-auth-guest>Daftar</a>
+      <a class="auth-link" href="akun.html" data-auth-user hidden>Akun saya</a><a class="auth-link" href="riwayat.html" data-auth-user hidden>Riwayat</a>
+      <button class="auth-link auth-logout" id="logout-button" type="button" hidden>Keluar</button><span class="auth-ui-status" id="auth-ui-status" role="status" aria-live="polite"></span>
+    </div>
+    <span class="system-status"><span class="status-dot" aria-hidden="true"></span>Portal informasi</span>
+  </header>
+  <main id="main-content" class="page-shell narrow-shell">
+    <section class="page-heading"><div><p class="eyebrow">AKUN WARGA</p><h1>Akun saya</h1><p class="muted">Periksa profil dan perbarui kata sandi.</p></div></section>
+    <p class="form-feedback" id="account-feedback" role="status" aria-live="polite">Memeriksa sesi akun…</p>
+    <section class="content-card glass account-summary" id="account-summary" aria-labelledby="profile-heading" hidden>
+      <h2 id="profile-heading">Profil</h2>
+      <dl class="profile-list">
+        <div><dt>Nama</dt><dd id="account-name">Memuat…</dd></div>
+        <div><dt>Email</dt><dd id="account-email">Memuat…</dd></div>
+        <div><dt>Peran</dt><dd id="account-role">Memuat…</dd></div>
+      </dl>
+    </section>
+    <form class="form-card glass auth-form account-password-form" id="password-form" hidden>
+      <h2>Ganti kata sandi</h2>
+      <div class="field"><label for="new-password">Kata sandi baru <span aria-hidden="true">*</span></label><input id="new-password" name="password" type="password" minlength="8" autocomplete="new-password" required><small>Minimal 8 karakter.</small></div>
+      <div class="field"><label for="confirm-password">Konfirmasi kata sandi <span aria-hidden="true">*</span></label><input id="confirm-password" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required></div>
+      <div class="form-actions"><button class="button button-primary" type="submit">Perbarui kata sandi</button></div>
+    </form>
+  </main>
+  <footer class="site-footer"><p>Ambon Alert <span aria-hidden="true">·</span> Prototipe informasi kebencanaan warga</p><a href="panduan.html">Panduan</a></footer>
+  <script src="js/config.js"></script><script src="js/ui.js"></script>
+  <script type="module" src="js/auth-ui.js"></script><script type="module" src="js/account.js"></script>
+</body>
+</html>
