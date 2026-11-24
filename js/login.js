@@ -43,7 +43,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     feedback.textContent = message;
     feedback.dataset.state = isError ? "error" : "success";
   }
+  async function getRedirectTarget(client, userId) {
+    if (!userId) return getSafeNextPage("riwayat.html");
+    const { data: profile } = await client
+    .from("profiles")
+    .select("role")
+    .eq("id", userId)
+    .maybeSingle();
 
+    if (profile?.role === "admin") {
+      return "admin/index.html";
+    }
+    return getSafeNextPage("riwayat.html");
+  }
   function refreshThrottleMessage() {
     const throttle = readThrottle();
     const remaining = throttle.blockedUntil - Date.now();
@@ -69,7 +81,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const { data, error } = await client.auth.getSession();
     if (error) throw error;
     if (data.session) {
-      window.location.replace(getSafeNextPage("riwayat.html"));
+      const target = await getRedirectTarget(client, data.session.user?.id);
+      window.location.replace(target);
       return;
     }
   } catch (error) {
@@ -111,7 +124,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       saveThrottle({ attempts: 0, blockedUntil: 0 });
-      window.location.assign(getSafeNextPage("riwayat.html"));
+      const target = await getRedirectTarget(client, data?.user?.id);
+      window.location.assign(target);
     } catch (error) {
       showMessage(getAuthErrorMessage(error), true);
       console.error("Login Ambon Alert gagal:", error);
